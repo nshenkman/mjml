@@ -32,6 +32,7 @@ registerComponent(require('mjml-spacer'))
 registerComponent(require('mjml-text'))
 registerComponent(require('mjml-table'))
 registerComponent(require('mjml-wrapper'))
+registerComponent(require('../../kl-button'))
 
 registerComponent(Social)
 registerComponent(SocialElement)

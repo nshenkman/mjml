@@ -10,6 +10,7 @@ export default {
   'mj-carousel': ['mj-carousel-image'],
   'mj-carousel-image': [],
   'mj-column': [
+    'kl-button',
     'mj-accordion',
     'mj-button',
     'mj-carousel',
@@ -37,6 +38,7 @@ export default {
     'mj-title',
   ],
   'mj-hero': [
+    'kl-button',
     'mj-accordion',
     'mj-button',
     'mj-carousel',
@@ -67,4 +69,5 @@ export default {
   'mj-table': [],
   'mj-text': [],
   'mj-wrapper': ['mj-hero', 'mj-raw', 'mj-section'],
+  'kl-button': [],
 }

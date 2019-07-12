@@ -1,11 +1,5 @@
-import { registerDependencies } from 'mjml-validator'
 import { klButton } from 'kl-types'
 import KlBodyComponent from 'kl-body-component'
-
-registerDependencies({
-  'mj-column': ['mj-button'],
-  'mj-hero': ['mj-button'],
-})
 
 export default class KlButton extends KlBodyComponent {
   static endingTag = true
