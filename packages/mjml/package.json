@@ -21,6 +21,9 @@
   },
   "dependencies": {
     "cross-env": "^5.1.4",
+    "kl-body-component": "1.0.0",
+    "kl-button": "1.0.0",
+    "kl-types": "1.0.0",
     "mjml-accordion": "4.3.0",
     "mjml-body": "4.3.0",
     "mjml-button": "4.3.0",

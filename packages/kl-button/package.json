@@ -1,0 +1,18 @@
+{
+  "name": "kl-button",
+  "description": "kl-button",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "clean": "cross-env ../../node_modules/.bin/rimraf lib",
+    "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "cross-env": "^5.1.4",
+    "mjml-validator": "4.3.0",
+    "kl-body-component": "1.0.0",
+    "kl-types": "1.0.0"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "kl-types",
+  "description": "kl-types",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "clean": "cross-env ../../node_modules/.bin/rimraf lib",
+    "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "cross-env": "^5.1.4"
+  }
+}
