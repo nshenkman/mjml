@@ -9,6 +9,9 @@
     "postinstall": "lerna bootstrap",
     "prettier": "prettier --write \"packages/**/{src,bin}/**/*.?(js|json)\""
   },
+  "files": [
+    "packages/mjml"
+  ],
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
