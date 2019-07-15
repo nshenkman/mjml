@@ -20,6 +20,7 @@ export default function validateAttribute(element, { components }) {
     keys(Component.allowedAttributes),
     WHITELIST,
   )
+
   const unknownAttributes = filter(
     keys(attributes),
     attribute => !includes(availableAttributes, attribute),

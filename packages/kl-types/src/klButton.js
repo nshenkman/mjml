@@ -5,7 +5,7 @@ const klButton = [
       type: 'enum(left,center,right)',
       attributes: [
         {
-          target: 'td',
+          target: 'container',
           key: 'align',
         },
       ],

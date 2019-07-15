@@ -3,8 +3,27 @@ import KlBodyComponent from 'kl-body-component'
 
 export default class KlButton extends KlBodyComponent {
   static endingTag = true
-  static name = 'kl-button'
+  static componentName = 'kl-button'
   static componentData = klButton
+
+  static allowedAttributes = klButton.reduce(
+    (acc, { key, data: { type } }) => ({
+      ...acc,
+      [key]: type,
+    }),
+    { id: 'string' },
+  )
+
+  static defaultAttributes = klButton.reduce(
+    (acc, { key, data: { dataDefault } }) =>
+      dataDefault
+        ? {
+            ...acc,
+            [key]: dataDefault,
+          }
+        : acc,
+    {},
+  )
 
   static defaultCSSStyles = {
     table: {

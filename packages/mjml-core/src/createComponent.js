@@ -43,13 +43,15 @@ class Component {
       content,
     }
 
-    this.attributes = formatAttributes({
-      ...this.constructor.defaultAttributes,
-      ...globalAttributes,
-      ...attributes,
-    }, this.constructor.allowedAttributes)
+    this.attributes = formatAttributes(
+      {
+        ...this.constructor.defaultAttributes,
+        ...globalAttributes,
+        ...attributes,
+      },
+      this.constructor.allowedAttributes,
+    )
     this.context = context
-
     return this
   }
 
@@ -100,7 +102,8 @@ export class BodyComponent extends Component {
   }
 
   getShorthandBorderValue(direction) {
-    const borderDirection = direction && this.getAttribute(`border-${direction}`)
+    const borderDirection =
+      direction && this.getAttribute(`border-${direction}`)
     const border = this.getAttribute('border')
 
     return borderParser(borderDirection || border || '0', 10)

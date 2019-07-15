@@ -1,91 +1,100 @@
 import { BodyComponent } from 'mjml-core'
 
-const convertTargetsToData = ({ targets, defaultData = {} }) =>
+const convertTargetsToData = ({ attributeKey, targets, defaultData = {} }) =>
   targets.reduce(
     (acc, { target, key }) => ({
       ...acc,
-      [target]: key,
+      [target]: acc[target]
+        ? acc[target].concat({ attributeKey, key })
+        : [{ attributeKey, key }],
     }),
     defaultData,
   )
 
 export default class KlBodyComponent extends BodyComponent {
   static dataComponent = []
-  static name = ''
+  static componentName = ''
 
   static requiredAttributes = {
     id: 'string',
   }
 
-  static allowedAttributes = this.constructor.dataComponent.reduce(
-    (acc, { key, data: { type } }) => ({
-      ...acc,
-      [key]: type,
-    }),
-    this.constructor.requiredAttributes,
-  )
-
-  static defaultAttributes = this.constructor.dataComponent.reduce(
-    (acc, { key, data: { dataDefault } }) =>
-      dataDefault
-        ? {
-            ...acc,
-            [key]: dataDefault,
-          }
-        : acc,
-    {},
-  )
-
-  static dataCSSStyles = this.constructor.dataComponent.reduce(
-    (acc, { data: { css } }) =>
-      css.length
-        ? {
-            ...acc,
-            ...convertTargetsToData({ targets: css }),
-          }
-        : acc,
-    {},
-  )
-
-  static dataHTMLAttributes = this.constructor.dataComponent.reduce(
-    (acc, { data: { attributes } }) =>
-      attributes.length
-        ? {
-            ...acc,
-            ...convertTargetsToData({ targets: attributes }),
-          }
-        : acc,
-    {},
-  )
-
-  getStyles() {
-    const dataStyles = Object.keys(this.constructor.dataCSSStyles).reduce(
-      (acc, value) =>
-        this.getAttribute(value) !== undefined
+  dataCSSStyles = () =>
+    this.constructor.componentData.reduce(
+      (acc, { key, data: { css } }) =>
+        css.length
           ? {
               ...acc,
-              [acc]: this.getAttribute(value),
+              ...convertTargetsToData({
+                attributeKey: key,
+                targets: css,
+                defaultData: acc,
+              }),
             }
           : acc,
       {},
     )
+
+  dataHTMLAttributes = () =>
+    this.constructor.componentData.reduce(
+      (acc, { key, data: { attributes } }) =>
+        attributes.length
+          ? {
+              ...acc,
+              ...convertTargetsToData({
+                attributeKey: key,
+                targets: attributes,
+                defaultData: acc,
+              }),
+            }
+          : acc,
+      {},
+    )
+
+  getStyles() {
+    const dataStylesKeys = this.dataCSSStyles()
+    const dataStyles = Object.keys(dataStylesKeys).reduce((acc, dataKey) => {
+      const keys = dataStylesKeys[dataKey]
+
+      return {
+        ...acc,
+        [dataKey]: keys.reduce(
+          (innerAcc, { attributeKey, key }) =>
+            this.getAttribute(attributeKey) !== undefined
+              ? {
+                  ...innerAcc,
+                  [key]: this.getAttribute(attributeKey),
+                }
+              : innerAcc,
+          {},
+        ),
+      }
+    }, {})
 
     return { ...this.constructor.defaultCSSStyles, ...dataStyles }
   }
 
   getAttributes() {
+    const dataAttributeKeys = this.dataHTMLAttributes()
     const dataAttributes = Object.keys(
-      this.constructor.dataHTMLAttributes,
-    ).reduce(
-      (acc, value) =>
-        this.getAttribute(value) !== undefined
-          ? {
-              ...acc,
-              [acc]: this.getAttribute(value),
-            }
-          : acc,
-      {},
-    )
+      dataAttributeKeys,
+    ).reduce((acc, dataKey) => {
+      const keys = dataAttributeKeys[dataKey]
+
+      return {
+        ...acc,
+        [dataKey]: keys.reduce(
+          (innerAcc, { attributeKey, key }) =>
+            this.getAttribute(attributeKey) !== undefined
+              ? {
+                  ...innerAcc,
+                  [key]: this.getAttribute(attributeKey),
+                }
+              : innerAcc,
+          {},
+        ),
+      }
+    }, {})
 
     return { ...this.constructor.defaultHTMLAttributes, ...dataAttributes }
   }
