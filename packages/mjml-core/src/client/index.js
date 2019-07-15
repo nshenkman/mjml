@@ -1,5 +1,5 @@
 import { find, get, identity, map, omit, reduce, isObject } from 'lodash'
-import MJMLValidator from 'mjml-validator'
+import MJMLValidator from '../../../mjml-validator'
 
 import components, { initComponent, registerComponent } from '../components'
 
