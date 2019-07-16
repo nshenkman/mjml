@@ -57,3 +57,9 @@ export default class KlButton extends KlBodyComponent {
     `
   }
 }
+
+export class KlButtonClient extends KlButton {
+  renderMJML(mjml) {
+    return this.context.processing(mjml, this.context)
+  }
+}
